@@ -1,0 +1,15 @@
+Zelda Notes - Native Fritchii Mod (v0.5.4)
+Copyright (c) 2026 Diefrttt
+License: MIT (https://github.com/Diefrttt/zelda-notes)
+
+LEGAL NOTICE & DISCLAIMER:
+This fan-made open-source mod is intended strictly for use with a legally
+owned copy of The Legend of Zelda: Ocarina of Time (Switch 2 Remake v1.1.1 /
+Title ID 0400486024DEC000 / Build ID E0F3CCFAF50065AE4EA01EB5AEB13B1A45DA3348).
+Created using a legally owned copy. No copyrighted Nintendo game code, ROMs,
+dumps, saves, firmware, or decryption keys are included or distributed.
+
+Third-Party Attributions & Licenses:
+- KaeGae Core / Kaepora Framework: see licenses/kaegae.txt
+- Spleen 8x16 Bitmap Font (BSD 2-Clause, Frederic Cambus): see licenses/kaegae-font.txt
+- Map Data & Artwork (Zelda Maps): see credits/map-art.txt

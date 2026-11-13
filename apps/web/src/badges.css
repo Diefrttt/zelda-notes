@@ -1,0 +1,123 @@
+/* Shared Zelda Maps POI badge shapes, colors and OoT glyph tweaks (main + overlay). */
+
+.poi-badge {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  vertical-align: middle;
+  color: #fff;
+  --poi-fill: #ffad47;
+  box-sizing: border-box;
+}
+
+.poi-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--poi-fill);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.poi-badge > .glyph {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+}
+
+/* Shapes & category palette (matching Zelda Maps site.css) */
+.poi-travel {
+  --poi-fill: #4395f7;
+}
+.poi-travel::after {
+  border-radius: 17%;
+  transform: rotate(45deg) scale(0.76);
+}
+.poi-travel > .icon-LA_Portal::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: 0.96em;
+  height: 0.96em;
+  transform: translate(-50%, -50%);
+  background: currentColor;
+  -webkit-mask: url('/icons/oot/WarpPad.svg') center / contain no-repeat;
+  mask: url('/icons/oot/WarpPad.svg') center / contain no-repeat;
+}
+
+.poi-korok { --poi-fill: #3dbc75; }
+.poi-heart { --poi-fill: #d94b72; }
+.poi-memory { --poi-fill: #c6c396; }
+.poi-silver { --poi-fill: #b7c4cf; color: #394a5a; }
+.poi-fairy-thought { --poi-fill: #ad91d5; }
+.poi-song { --poi-fill: #628bd4; }
+.poi-relic { --poi-fill: #8f773a; }
+
+.poi-location,
+.poi-location-round,
+.poi-cave {
+  --poi-fill: #8f773a;
+  color: #684521;
+}
+.poi-location::after { border-radius: 16%; }
+.poi-cave::after { border-radius: 50% 50% 13% 13%; }
+
+.poi-enemy { --poi-fill: #e85040; }
+.poi-interest { --poi-fill: #ffad47; }
+
+.poi-treasure {
+  color: #ede954;
+}
+.poi-treasure::after {
+  display: none;
+}
+.poi-treasure > .glyph {
+  filter:
+    drop-shadow(1px 0 var(--poi-outline, #2a2600))
+    drop-shadow(-1px 0 var(--poi-outline, #2a2600))
+    drop-shadow(0 1px var(--poi-outline, #2a2600))
+    drop-shadow(0 -1px var(--poi-outline, #2a2600));
+}
+
+/* Glyph optical sizing */
+.poi-location > .icon-General_Store::before {
+  display: inline-block;
+  transform: scale(1.3);
+  transform-origin: center;
+}
+.poi-badge > .icon-OoT_Kaepora::before {
+  clip-path: polygon(50% -20%, 120% 50%, 50% 120%, -20% 50%);
+}
+.poi-badge > .icon-OoT_SilverRupee::before {
+  width: 0.88em;
+  height: 0.88em;
+}
+.poi-badge > .icon-OoT_FairyThought::before,
+.poi-badge > .icon-OoT_Song::before,
+.poi-badge > .icon-OoT_Poe::before,
+.poi-badge > .icon-OoT_Kaepora::before,
+.poi-badge > .icon-OoT_GossipStone::before,
+.poi-badge > .icon-General_HeartPiece::before {
+  width: 1.06em;
+  height: 1.06em;
+}
+
+/* Map & overlay marker white border */
+.leaflet-marker-pane .poi-badge:not(.poi-treasure)::after,
+.ov-pin .poi-badge:not(.poi-treasure)::after {
+  box-shadow: 0 0 0 1.5px #fff;
+}
+.leaflet-marker-pane .poi-travel::after,
+.ov-pin .poi-travel::after {
+  transform: rotate(45deg) scale(0.84);
+}

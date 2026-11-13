@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Zelda Notes — Overlay</title>
+  <link rel="stylesheet" href="/icons/icons.css">
+</head>
+<body>
+  <div id="ov" class="ov gray">
+    <header id="ov-pill" class="ov-pill" data-tauri-drag-region>
+      <div class="ov-title" data-tauri-drag-region>
+        <div class="ov-area-row" data-tauri-drag-region>
+          <span id="ov-area" class="ov-area" data-tauri-drag-region data-i18n="ovNoArea">No area</span>
+          <span id="ov-src" class="ov-src" data-tauri-drag-region hidden></span>
+          <button id="ov-age" class="ov-age neutral" type="button" title="Detected age (click to cycle Auto / Child / Adult)" data-i18n-title="ovAgeTitle" hidden></button>
+        </div>
+      </div>
+      <div class="ov-actions">
+        <span id="ov-count" class="ov-count" data-tauri-drag-region>–</span>
+        <button id="ov-cal" class="ov-btn" type="button" title="Calibrate over minimap (F7)" data-i18n-title="calibrateBtnTitle">🎯</button>
+        <button id="ov-expand" class="ov-btn" type="button" title="Pending list (F9)" data-i18n-title="ovPendingTitle">▾</button>
+      </div>
+    </header>
+
+    <div id="ov-stage" class="ov-stage">
+      <div id="ov-guide" class="ov-guide" hidden>
+        <div id="ov-guide-box" class="ov-guide-box">
+          <canvas id="ov-guide-canvas" class="ov-guide-canvas"></canvas>
+        </div>
+      </div>
+      <div id="ov-canvas" class="ov-canvas"></div>
+
+      <div id="ov-frame" class="ov-frame" hidden>
+        <div class="ov-handle nw" data-handle="nw" title="Scale corner" data-i18n-title="ovHandleCorner"></div>
+        <div class="ov-handle n" data-handle="n" title="Stretch top edge" data-i18n-title="ovHandleTop"></div>
+        <div class="ov-handle ne" data-handle="ne" title="Scale corner" data-i18n-title="ovHandleCorner"></div>
+        <div class="ov-handle w" data-handle="w" title="Stretch width (left edge)" data-i18n-title="ovHandleLeft"></div>
+        <div class="ov-handle e" data-handle="e" title="Stretch width (right edge)" data-i18n-title="ovHandleRight"></div>
+        <div class="ov-handle sw" data-handle="sw" title="Scale corner" data-i18n-title="ovHandleCorner"></div>
+        <div class="ov-handle s" data-handle="s" title="Stretch bottom edge" data-i18n-title="ovHandleBottom"></div>
+        <div class="ov-handle se" data-handle="se" title="Scale corner" data-i18n-title="ovHandleCorner"></div>
+      </div>
+
+      <div id="ov-calbar" class="ov-calbar" hidden>
+        <div class="ov-calrow">
+          <div class="ov-calpad">
+            <button id="ov-guide-btn" type="button" class="on" title="Toggle guide map (50% / 80% / Hidden)" data-i18n-title="ovGuideTitle" data-i18n="ovGuideBtn">🗺 Guide</button>
+            <button id="ov-aspect-btn" type="button" class="on" title="Cycle wheel / +- axis (Proportional · Width · Height)" data-i18n-title="ovAspectTitle" data-i18n="ovAspectProp">🔒 Prop</button>
+            <button id="ov-floor-btn" type="button" title="Switch guide dungeon floor" data-i18n-title="ovFloorTitle" hidden></button>
+          </div>
+          <div class="ov-calpad">
+            <button id="ov-left" type="button" title="Move left (←)" data-i18n-title="ovMoveLeft">←</button>
+            <button id="ov-up" type="button" title="Move up (↑)" data-i18n-title="ovMoveUp">↑</button>
+            <button id="ov-down" type="button" title="Move down (↓)" data-i18n-title="ovMoveDown">↓</button>
+            <button id="ov-right" type="button" title="Move right (→)" data-i18n-title="ovMoveRight">→</button>
+            <button id="ov-zout" type="button" title="Zoom out (-)" data-i18n-title="ovZoomOut">−</button>
+            <button id="ov-zin" type="button" title="Zoom in (+)" data-i18n-title="ovZoomIn">+</button>
+          </div>
+        </div>
+        <div class="ov-calrow">
+          <span class="ov-calhint" data-i18n="ovCalHint">Edges: stretch · Wheel / +-: axis</span>
+          <div class="ov-calpad">
+            <button id="ov-base-btn" type="button" title="Set current horizontal stretch as baseline for new areas (Shift+click: 1.00×)" data-i18n-title="ovBaseInitTitle">📐 1.00×</button>
+            <button id="ov-reset" type="button" title="Reset alignment (to current baseline)" data-i18n-title="ovResetTitle">↺</button>
+            <button id="ov-done" class="primary" type="button" data-i18n="ovSaveBtn">✔ Save</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="ov-list" class="ov-drawer" hidden></div>
+
+      <div id="ov-detail" class="ov-detail" hidden>
+        <div class="ov-detail-head">
+          <b id="ov-detail-name"></b>
+          <button id="ov-detail-close" type="button">×</button>
+        </div>
+        <div id="ov-detail-text" class="ov-detail-text"></div>
+        <div class="ov-detail-actions">
+          <button id="ov-detail-mark" type="button" data-i18n="markCollected">Mark collected</button>
+        </div>
+      </div>
+
+      <div id="ov-resize" class="ov-resize" title="Resize over minimap" data-i18n-title="ovResizeTitle" hidden>◢</div>
+    </div>
+  </div>
+  <script type="module" src="/src/overlay.ts"></script>
+</body>
+</html>

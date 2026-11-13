@@ -1,0 +1,209 @@
+@import './badges.css';
+
+:root { --bg:#12171a; --panel:#1a2125; --cats-bg:#121316; --line:#2a353a; --fg:#e4e9e6; --accent:#4cc27a; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin:0; height:100%; background:var(--bg); color:var(--fg); font:14px system-ui, sans-serif; }
+body { display:flex; flex-direction:column; }
+
+header { display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:8px 12px; background:var(--panel); border-bottom:1px solid var(--line); }
+.logo { color:var(--accent); font-size:16px; margin-right:6px; }
+select, input[type=search], input[type=number] { background:var(--bg); color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:5px 8px; }
+.hud-stretch-wrap { display:flex; align-items:center; gap:4px; font-size:12px; color:rgba(228,233,230,.85); }
+.hud-stretch-wrap input[type=number] { width:62px; padding:4px 6px; font-size:12px; }
+.overlay-controls { display:flex; gap:6px; }
+.overlay-controls button { margin:0; padding:5px 9px; font-size:12px; background:var(--bg); color:var(--fg); border:1px solid var(--line); }
+.overlay-controls button.active { border-color:#f0b429; color:#f0b429; }
+
+main { flex:1; display:grid; grid-template-columns:348px 1fr 252px; min-height:0; }
+aside { background:var(--panel); overflow:auto; padding:10px; }
+#card { border-left:1px solid var(--line); }
+
+/* Categories panel (Zelda Maps style) */
+#cats {
+  display:flex;
+  flex-direction:column;
+  background:var(--cats-bg);
+  border-right:1px solid #262930;
+  padding:10px 10px;
+  overflow:hidden;
+}
+.cats-toolbar {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:10px;
+  flex:none;
+}
+.cats-summary {
+  flex:1;
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:7px 11px;
+  border-radius:10px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:12px;
+  color:rgba(255,255,255,.85);
+}
+.cats-summary b { color:var(--accent); font-weight:700; }
+
+.category-view-toggle {
+  display:flex;
+  flex:none;
+  padding:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+}
+.category-view-toggle button {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:28px;
+  padding:0;
+  border:0;
+  border-radius:999px;
+  color:rgba(255,255,255,.6);
+  background:none;
+  cursor:pointer;
+}
+.category-view-toggle button[aria-pressed="true"] {
+  background:rgba(255,255,255,.22);
+  color:#fff;
+}
+.category-view-toggle button:hover { color:#fff; }
+.category-view-dots { display:grid; grid-template-columns:repeat(2,4px); gap:3px; }
+.category-view-dots i { display:block; width:4px; height:4px; border-radius:50%; background:currentColor; }
+
+.cats-scroll {
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding-right:4px;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.22) transparent;
+}
+.cat-section { margin-bottom:12px; }
+.poi-category-heading {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:2px 0 8px;
+}
+.poi-category-heading h3,
+.category-list-heading h3 {
+  margin:0;
+  font-size:13px;
+  font-weight:700;
+  color:#fff;
+}
+.poi-category-toggle {
+  margin-left:auto;
+  flex:none;
+  border:0;
+  background:rgba(255,255,255,.12);
+  border-radius:999px;
+  padding:3px 10px;
+  color:rgba(255,255,255,.7);
+  font:inherit;
+  font-size:11.5px;
+  font-weight:500;
+  line-height:1.35;
+  cursor:pointer;
+}
+.poi-category-toggle:hover { color:#fff; background:rgba(255,255,255,.22); }
+.poi-category-toggle[aria-pressed="true"] { color:#fff; background:rgba(255,255,255,.28); }
+
+.cat-grid {
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:10px 4px;
+}
+.cat-item {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:2px;
+  border:0;
+  background:none;
+  color:inherit;
+  font:inherit;
+  cursor:pointer;
+  transition:opacity .15s;
+}
+.cat-item:hover .cat-name { color:#fff; }
+.cat-item.off,
+.category-list-row.off { opacity:.35; }
+.cat-name {
+  margin-top:6px;
+  font-size:10.5px;
+  line-height:1.2;
+  font-weight:400;
+  color:rgba(255,255,255,.82);
+  overflow-wrap:break-word;
+  max-width:100%;
+}
+.cat-count {
+  margin-top:2px;
+  font-size:10.5px;
+  line-height:1.2;
+  color:rgba(255,255,255,.48);
+}
+
+.category-list-heading {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 2px 6px;
+}
+.category-list-check {
+  width:17px;
+  height:17px;
+  margin:0;
+  accent-color:var(--accent);
+  cursor:pointer;
+}
+.category-list-row {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  padding:5px 6px;
+  border:0;
+  border-radius:8px;
+  background:none;
+  color:inherit;
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+  transition:opacity .15s, background .15s;
+}
+.category-list-row:hover { background:rgba(255,255,255,.08); }
+.category-list-name { flex:1; min-width:0; font-size:13px; font-weight:400; color:rgba(255,255,255,.86); }
+.category-list-count { font-size:12px; color:rgba(255,255,255,.5); }
+
+#mapview { background:#1c1709; }
+.leaflet-container { background:#1c1709; }
+
+#card h2 { margin:0 0 4px; font-size:17px; }
+.meta { opacity:.65; margin-bottom:10px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+#card h4 { margin:12px 0 4px; color:var(--accent); }
+.how img { max-width:100%; border-radius:6px; }
+.card-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+button { background:var(--accent); color:#06140b; border:0; border-radius:6px; padding:7px 12px; font-weight:600; cursor:pointer; }
+button.secondary { background:var(--bg); color:var(--fg); border:1px solid var(--line); }
+.card-link { margin-top:10px; }
+a { color:var(--accent); font-size:12px; }
+.hint { opacity:.5; }
+footer { padding:4px 12px; font-size:11px; opacity:.55; background:var(--panel); border-top:1px solid var(--line); }
+
+.pin { background:none; border:0; }
+.pin.done .poi-badge { filter:grayscale(1); opacity:.45; }
+.pin.ignored .poi-badge { filter:grayscale(1); opacity:.22; }
+.savestatus { margin-left:auto; font-size:12px; opacity:.7; }
+.auto { color:var(--accent); font-weight:600; }

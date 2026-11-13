@@ -1,0 +1,19 @@
+manifest = 1
+id = "zelda-notes.ranch-counter"
+name = "Zelda Notes"
+version = "0.5.4"
+
+[game]
+title = "0400486024DEC000"
+
+[core]
+api = "0.4"
+sources = ["src/entry.c", "src/counter.c", "src/game_state.c", "src/native_state.c", "src/catalog_gen.c", "src/map_panel.c", "src/map_draw.c", "src/map_texture.c", "src/hud_icons.c", "src/hud.c"]
+events = ["draw", "input", "frame"]
+symbols = ["global:GameDataMgrPtr"]
+
+[core.imports]
+_ZN2nn2fs8OpenFileEPNS0_10FileHandleEPKci = "sdk"
+_ZN2nn2fs11GetFileSizeEPlNS0_10FileHandleE = "sdk"
+_ZN2nn2fs8ReadFileENS0_10FileHandleElPvm = "sdk"
+_ZN2nn2fs9CloseFileENS0_10FileHandleE = "sdk"

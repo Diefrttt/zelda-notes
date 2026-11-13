@@ -1,0 +1,17 @@
+{
+  "name": "zelda-notes",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "ingest": "node apps/ingest/src/ingest.mjs",
+    "ingest:tiles": "node apps/ingest/src/tiles.mjs",
+    "ingest:images": "node apps/ingest/src/images.mjs",
+    "ingest:es": "node apps/ingest/src/translate.mjs",
+    "dev": "npm --workspace=web run dev",
+    "desktop": "npm --workspace=web run tauri dev",
+    "build": "npm --workspace=web run build",
+    "build:exe": "npm --workspace=web run tauri build -- --no-bundle",
+    "test": "node --test packages/core/test/core.test.mjs packages/saves/test/saves.test.mjs"
+  }
+}

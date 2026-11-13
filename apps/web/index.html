@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Zelda Notes</title>
+  <link rel="stylesheet" href="/icons/icons.css">
+</head>
+<body>
+  <header>
+    <b class="logo">Zelda Notes</b>
+    <select id="map"></select>
+    <select id="submap"></select>
+    <input id="q" type="search" placeholder="Search…" data-i18n-placeholder="searchPlaceholder">
+    <label><input id="pending" type="checkbox"> <span data-i18n="onlyPending">pending only</span></label>
+    <select id="manual-area" title="Manual area override when no save or live game is active" data-i18n-title="manualAreaTitle"></select>
+    <select id="manual-age" title="Link age filter for categories and overlay (auto from save or manual)" data-i18n-title="manualAgeTitle">
+      <option value="" data-i18n="ageAutoOption">Age: Auto</option>
+      <option value="child" data-i18n="ageChildOption">Age: Child</option>
+      <option value="adult" data-i18n="ageAdultOption">Age: Adult</option>
+    </select>
+    <label class="hud-stretch-wrap" title="Default overlay horizontal stretch for new areas" data-i18n-title="hudWidthTitle"><span data-i18n="hudWidthLabel">Width X</span> <input id="hud-stretch" type="number" min="0.50" max="2.00" step="0.01" value="1.00"></label>
+    <div id="overlay-controls" class="overlay-controls" hidden>
+      <button id="btn-overlay-cal" type="button" title="Calibrate over minimap (F7)" data-i18n-title="calibrateBtnTitle">🎯 Calibrate (F7)</button>
+      <button id="btn-overlay-toggle" type="button" title="Show or hide overlay (F8)" data-i18n-title="toggleOverlayTitle">Overlay</button>
+      <button id="btn-overlay-click" type="button" title="Toggle click-through (F10)" data-i18n-title="clickThroughTitle">Click-through</button>
+    </div>
+    <select id="lang" aria-label="Language" data-i18n-aria="langAria">
+      <option value="auto" data-i18n="langAuto">Auto</option>
+      <option value="en" data-i18n="langEn">EN</option>
+      <option value="es" data-i18n="langEs">ES</option>
+    </select>
+    <span id="savestatus" class="savestatus"></span>
+  </header>
+  <main>
+    <aside id="cats"></aside>
+    <div id="mapview"></div>
+    <aside id="card"><p class="hint" data-i18n="selectMarkerHint">Click a marker on the map.</p></aside>
+  </main>
+  <footer data-i18n="footerCredit">Map data: Zelda Maps · Art © Nintendo · personal use</footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

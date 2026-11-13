@@ -1,0 +1,35 @@
+# Dependencies & build outputs
+node_modules/
+apps/web/dist/
+apps/web/src-tauri/target/
+apps/web/src-tauri/gen/
+mods/fritchii/build/
+
+# Ingested & heavy assets (re-generated locally via apps/ingest)
+data/tiles/
+data/img/
+data/uploads/
+data/icons/site.css
+data/snapshot/
+
+# Packaging, release bundles & documentation artifacts
+release-kit/
+gamebanana-release/
+docs/
+
+# Workspace & internal agent metadata
+.brain/
+AGENTS.md
+.codex/
+
+# Logs & temp files
+*.log
+
+# Console dumps, keys & user saves (allow synthetic test fixtures)
+*.sav
+!packages/saves/test/fixtures/**/*.sav
+*.nsp
+*.xci
+*.keys
+prod.keys
+title.keys

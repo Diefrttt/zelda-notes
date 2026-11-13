@@ -1,0 +1,55 @@
+--- a/api/core/draw.c
++++ b/api/core/draw.c
+@@ -77,4 +77,4 @@
+ #define SLOTS         8
+-#define MAX_RECTS     8192
+-static size_t command_bytes = 0x40000, control_bytes = 0x10000;   // each frame's share
++#define MAX_RECTS     32768
++static size_t command_bytes = 0x80000, control_bytes = 0x20000;   // each frame's share
+ #define SMALL_COMMAND 0x4000
+@@ -106,6 +106,8 @@
+ static int most_rects;
+ static int frame_width, frame_height;
+ 
++#include "zn_map_gpu.inc"
++
+ static bool equal(const char *a, const char *b) {
+     for (; *a == *b; a++, b++)
+         if (!*a)
+@@ -182,17 +184,21 @@
+         kp_log_2("first frame, picture size", frame_width, frame_height);
+     KaeFrame frame = { sizeof frame, frame_width, frame_height, frame_number };
+     rect_count = 0;
++    zn_map_queue = queue;
++    zn_map_target = target;
++    zn_map_pending = false;
+     in_draw = true;
+     kp_fire_draw(&frame);
+     in_draw = false;
+     frame_number++;
+-    if (!rect_count)
++    if (!rect_count && !zn_map_pending)
+         return;
+ 
+     int slot = (int)(frame_number % SLOTS);
+     nvn.cmd_add_command(&commands, &pool, (ptrdiff_t)slot * (ptrdiff_t)command_bytes, command_bytes);
+     nvn.cmd_add_control(&commands, control_memory + (size_t)slot * control_bytes, control_bytes);
+     nvn.cmd_begin(&commands);
++    zn_record_map_copy();
+     nvn.cmd_targets(&commands, 1, &target, 0, 0, 0);
+     bool can_ask = cmd_command_free && cmd_control_free;
+     int drawn = 0;
+--- a/api/include/kaegae.h
++++ b/api/include/kaegae.h
+@@ -127,6 +127,11 @@
+ KAE_API int  kae_on_draw(KaeDrawFn fn, void *user, int priority);
+ /* Fills a rectangle of the picture; (0, 0) is the top left. Only inside a draw function. */
+ KAE_API void kae_draw_rect(int x, int y, int w, int h, uint32_t rgb);
++/* Zelda Notes map extension. Queues map and icon atlas copies before rectangle drawing. */
++KAE_API int kae_map_upload_atlas(const uint8_t *rgba, int width, int height);
++KAE_API int kae_map_blit(uint32_t id, int width, int height, const uint8_t *rgba,
++                        int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh);
++KAE_API int kae_map_blit_atlas(int sx, int sy, int sw, int sh, int dx, int dy);
+ /* Text in Core's built-in font: 8 x 16 pixels a character, times `scale` (1, 2, 3...). (x, y) is the
+    top left of the first character; "\n" starts a new line under it. UTF-8; the font has ASCII and
+    Latin-1 (U+00A0 to U+00FF), anything else shows as "?". Returns the x where the next character
